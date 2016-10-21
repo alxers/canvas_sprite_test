@@ -52,5 +52,14 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Loop through all the sprites and use their properties to display them
+    sprites.map(function(sprite) {
+      ctx.drawImage(
+        image,
+        sprite.sourceX, sprite.sourceY,
+        sprite.sourceWidth, sprite.sourceHeight,
+        Math.floor(sprite.x), Math.floor(sprite.y),
+        sprite.width, sprite.height
+      )
+    });
   }
 })()
