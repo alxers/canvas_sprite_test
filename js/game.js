@@ -23,8 +23,8 @@
   // Create sprites
   // Center it on the canvas
   let obj = Object.create(spriteObject);
-  obj.x = 0
-  obj.y = 168;
+  obj.x = canvas.height / 2 - sprite.height / 2;
+  obj.y = canvas.width / 2 - sprite.width / 2;
   sprites.push(obj);
 
   // Load sprite image
