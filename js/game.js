@@ -10,7 +10,10 @@
     x: 0,
     y: 0,
     width: 64,
-    height: 64
+    height: 64,
+
+    vx: 0,
+    vy: 0
   };
 
   // Canvas and context
@@ -23,14 +26,61 @@
   // Create sprites
   // Center it on the canvas
   let obj = Object.create(spriteObject);
-  obj.x = canvas.height / 2 - sprite.height / 2;
-  obj.y = canvas.width / 2 - sprite.width / 2;
+  obj.x = canvas.height / 2 - obj.height / 2;
+  obj.y = canvas.width / 2 - obj.width / 2;
   sprites.push(obj);
 
   // Load sprite image
   let image = new Image();
   image.addEventListener('load', loadHandler, false);
   image.src = 'sprites/obj.png';
+
+  // Arrow key codes
+  const UP = 38;
+  const DOWN = 40;
+  const RIGHT = 39;
+  const LEFT = 37;
+
+  // Directions
+  let moveUp = false;
+  let moveDown = false;
+  let moveRight = false;
+  let moveLeft = false;
+
+  // Keyboard listeners
+  window.addEventListener('keydown', function(e) {
+    switch(e.keyCode) {
+      case UP:
+        moveUp = true;
+        break;
+      case DOWN:
+        moveDown = true;
+        break;
+      case LEFT:
+        moveLeft = true;
+        break;
+      case RIGHT:
+        moveRight = true;
+        break;
+    }
+  }, false)
+
+  window.addEventListener('keyup', function(e) {
+    switch(e.keyCode) {
+      case UP:
+        moveUp = false;
+        break;
+      case DOWN:
+        moveDown = false;
+        break;
+      case LEFT:
+        moveLeft = false;
+        break;
+      case RIGHT:
+        moveRight = false;
+        break;
+    }
+  }, false)
 
   function loadHandler() {
     // Update the sprite as soon as the image has been loaded
