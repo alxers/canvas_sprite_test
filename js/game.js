@@ -91,7 +91,38 @@
     // Create animation loop
     window.requestAnimationFrame(update, canvas);
 
-    obj.x++;
+    // Up
+    if (moveUp && !moveDown) {
+      obj.vy = -5;
+    }
+
+    // Down
+    if (moveDown && !moveUp) {
+      obj.vy = 5;
+    }
+
+    // Left
+    if (moveLeft && !moveRight) {
+      obj.vx = -5;
+    }
+
+    // Right
+    if (moveRight && !moveLeft) {
+      obj.vx = 5;
+    }
+
+    // Set velocity to zero if no keys are pressed
+    if (!moveUp && !moveDown) {
+      obj.vy = 0;
+    }
+
+    if (!moveLeft && !moveRight) {
+      obj.vx = 0;
+    }
+
+    // Move sprite
+    obj.x += obj.vx;
+    obj.y += obj.vy;
 
     // Render the animation
     render();
