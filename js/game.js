@@ -12,8 +12,24 @@
     width: 64,
     height: 64,
 
-    vx: 0,
-    vy: 0
+    velocityX: 0,
+    velocityY: 0,
+
+    left: function() {
+      return this.x;
+    },
+
+    right: function() {
+      return this.x + this.width;
+    },
+
+    top: function() {
+      return this.y;
+    },
+
+    bottom: function() {
+      return this.y + this.height;
+    }
   };
 
   // Canvas and context
@@ -82,6 +98,13 @@
     }
   }, false)
 
+  function hitTestPoint(pointX, pointY, sprite) {
+    return (pointX > sprite.left() &&
+            pointX < sprite.right() &&
+            pointY > sprite.top() &&
+            pointY < sprite.bottom())
+  }
+
   function loadHandler() {
     // Update the sprite as soon as the image has been loaded
     update();
@@ -93,36 +116,36 @@
 
     // Up
     if (moveUp && !moveDown) {
-      obj.vy = -5;
+      obj.velocityY = -5;
     }
 
     // Down
     if (moveDown && !moveUp) {
-      obj.vy = 5;
+      obj.velocityY = 5;
     }
 
     // Left
     if (moveLeft && !moveRight) {
-      obj.vx = -5;
+      obj.velocityX = -5;
     }
 
     // Right
     if (moveRight && !moveLeft) {
-      obj.vx = 5;
+      obj.velocityX = 5;
     }
 
     // Set velocity to zero if no keys are pressed
     if (!moveUp && !moveDown) {
-      obj.vy = 0;
+      obj.velocityY = 0;
     }
 
     if (!moveLeft && !moveRight) {
-      obj.vx = 0;
+      obj.velocityX = 0;
     }
 
     // Move sprite
-    obj.x += obj.vx;
-    obj.y += obj.vy;
+    obj.x += obj.velocityX;
+    obj.y += obj.velocityY;
 
     // Render the animation
     render();
