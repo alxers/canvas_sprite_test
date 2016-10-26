@@ -29,6 +29,22 @@
 
     bottom: function() {
       return this.y + this.height;
+    },
+
+    centerX: function() {
+      return this.x + (this.width / 2);
+    },
+
+    centerY: function() {
+      return this.x + (this.height / 2);
+    },
+
+    halfWidth: function() {
+      return this.width / 2;
+    },
+
+    halfHeight: function() {
+      return this.height / 2;
     }
   };
 
@@ -103,6 +119,20 @@
             pointX < sprite.right() &&
             pointY > sprite.top() &&
             pointY < sprite.bottom())
+  }
+
+  function hitTestCircle(c1, c2) {
+    // Distance between the circles' center points
+    let vectorX = c1.centerX() - c2.centerX();
+    let vectorY = c1.centerY() - c2.centerY();
+
+    // Vector's magnitude
+    let magnitude = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+
+    let totalRadii = c1.halfWidth() + c2.halfWidth();
+
+    // Collision if the distance between the circles is less than their total radii
+    return magnitude < totalRadii;
   }
 
   function loadHandler() {
