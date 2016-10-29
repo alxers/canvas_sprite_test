@@ -43,3 +43,19 @@ function blockCircle(c1, c2) {
     c1.y += overlap * dy;
   }
 }
+
+function render(event) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (sprites.length !== 0) {
+    sprites.forEach(function(sprite) {
+      ctx.drawImage(
+        image,
+        sprite.sourceX, sprite.sourceY,
+        sprite.sourceWidth, sprite.sourceHeight,
+        Math.floor(sprite.x), Math.floor(sprite.y),
+        sprite.width, sprite.height
+      );
+    })
+  }
+}
