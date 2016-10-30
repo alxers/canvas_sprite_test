@@ -1,199 +1,228 @@
-;(function() {
-  let spriteObject = {
-    // The 'x' any 'y' source position of the sprite's image and its height and width
-    sourceX: 0,
-    sourceY: 0,
-    sourceWidth: 64,
-    sourceHeight: 64,
 
-    // The 'x' and 'y' position of the sprite on the canvas and its height and width
-    x: 0,
-    y: 0,
-    width: 64,
-    height: 64,
 
-    velocityX: 0,
-    velocityY: 0,
+//--- The sprite object
 
-    left: function() {
-      return this.x;
-    },
+var spriteObject =
+{
+  sourceX: 0,
+  sourceY: 0,
+  sourceWidth: 64,
+  sourceHeight: 64,
+  width: 64,
+  height: 64,
+  x: 0,
+  y: 0,
+  vx: 0,
+  vy: 0,
 
-    right: function() {
-      return this.x + this.width;
-    },
+  //Getters
+  centerX: function()
+  {
+    return this.x + (this.width / 2);
+  },
+  centerY: function()
+  {
+    return this.y + (this.height / 2);
+  },
+  halfWidth: function()
+  {
+    return this.width / 2;
+  },
+  halfHeight: function()
+  {
+    return this.height / 2;
+  }
+};
 
-    top: function() {
-      return this.y;
-    },
+//--- The main program
 
-    bottom: function() {
-      return this.y + this.height;
-    },
+//The canvas and its drawing surface
+var canvas = document.querySelector("canvas");
+var drawingSurface = canvas.getContext("2d");
 
-    centerX: function() {
-      return this.x + (this.width / 2);
-    },
+//An array to store the sprites
+var sprites = [];
 
-    centerY: function() {
-      return this.x + (this.height / 2);
-    },
+//Create the redCircle circle
+var redCircle = Object.create(spriteObject);
+redCircle.x = 350;
+redCircle.y = 100;
+redCircle.height = 100;
+redCircle.width = 100;
+sprites.push(redCircle);
 
-    halfWidth: function() {
-      return this.width / 2;
-    },
+//Create the blueCircle circle
+var blueCircle = Object.create(spriteObject);
+blueCircle.sourceX = 64;
+blueCircle.x = 150;
+blueCircle.y = 250;
+sprites.push(blueCircle);
 
-    halfHeight: function() {
-      return this.height / 2;
-    }
-  };
+//Load the image
+var image = new Image();
+image.addEventListener("load", loadHandler, false);
+image.src = "sprites/circles.png";
 
-  // Canvas and context
-  let canvas = document.querySelector('canvas');
-  var ctx = canvas.getContext('2d');
+//Arrow key codes
+var UP = 38;
+var DOWN = 40;
+var RIGHT = 39;
+var LEFT = 37;
 
-  // An array to store the game sprites
-  let sprites = [];
+//Directions
+var moveUp = false;
+var moveDown = false;
+var moveRight = false;
+var moveLeft = false;
 
-  // Create sprites
-  // Center it on the canvas
-  let obj = Object.create(spriteObject);
-  obj.x = canvas.height / 2 - obj.height / 2;
-  obj.y = canvas.width / 2 - obj.width / 2;
-  sprites.push(obj);
+//Add keyboard listeners
+window.addEventListener("keydown", function(event)
+{
+  switch(event.keyCode)
+  {
+    case UP:
+	    moveUp = true;
+	    break;
 
-  // Load sprite image
-  let image = new Image();
-  image.addEventListener('load', loadHandler, false);
-  image.src = 'sprites/obj.png';
+	  case DOWN:
+	    moveDown = true;
+	    break;
 
-  // Arrow key codes
-  const UP = 38;
-  const DOWN = 40;
-  const RIGHT = 39;
-  const LEFT = 37;
+	  case LEFT:
+	    moveLeft = true;
+	    break;
 
-  // Directions
-  let moveUp = false;
-  let moveDown = false;
-  let moveRight = false;
-  let moveLeft = false;
+	  case RIGHT:
+	    moveRight = true;
+	    break;
+  }
+}, false);
 
-  // Keyboard listeners
-  window.addEventListener('keydown', function(e) {
-    switch(e.keyCode) {
-      case UP:
-        moveUp = true;
-        break;
-      case DOWN:
-        moveDown = true;
-        break;
-      case LEFT:
-        moveLeft = true;
-        break;
-      case RIGHT:
-        moveRight = true;
-        break;
-    }
-  }, false)
+window.addEventListener("keyup", function(event)
+{
+  switch(event.keyCode)
+  {
+    case UP:
+	    moveUp = false;
+	    break;
 
-  window.addEventListener('keyup', function(e) {
-    switch(e.keyCode) {
-      case UP:
-        moveUp = false;
-        break;
-      case DOWN:
-        moveDown = false;
-        break;
-      case LEFT:
-        moveLeft = false;
-        break;
-      case RIGHT:
-        moveRight = false;
-        break;
-    }
-  }, false)
+	  case DOWN:
+	    moveDown = false;
+	    break;
 
-  function hitTestPoint(pointX, pointY, sprite) {
-    return (pointX > sprite.left() &&
-            pointX < sprite.right() &&
-            pointY > sprite.top() &&
-            pointY < sprite.bottom())
+	  case LEFT:
+	    moveLeft = false;
+	    break;
+
+	  case RIGHT:
+	    moveRight = false;
+	    break;
+  }
+}, false);
+
+function loadHandler()
+{
+  update();
+}
+
+function update()
+{
+  //The animation loop
+  requestAnimationFrame(update, canvas);
+
+  //Up
+  if(moveUp && !moveDown)
+  {
+    blueCircle.vy = -5;
+  }
+  //Down
+  if(moveDown && !moveUp)
+  {
+    blueCircle.vy = 5;
+  }
+  //Left
+  if(moveLeft && !moveRight)
+  {
+    blueCircle.vx = -5;
+  }
+  //Right
+  if(moveRight && !moveLeft)
+  {
+    blueCircle.vx = 5;
   }
 
-  function hitTestCircle(c1, c2) {
-    // Distance between the circles' center points
-    let vectorX = c1.centerX() - c2.centerX();
-    let vectorY = c1.centerY() - c2.centerY();
-
-    // Vector's magnitude
-    let magnitude = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
-
-    let totalRadii = c1.halfWidth() + c2.halfWidth();
-
-    // Collision if the distance between the circles is less than their total radii
-    return magnitude < totalRadii;
+  //Set the blueCircle's velocity to zero if none of the keys are being pressed
+  if(!moveUp && !moveDown)
+  {
+    blueCircle.vy = 0;
+  }
+  if(!moveLeft && !moveRight)
+  {
+    blueCircle.vx = 0;
   }
 
-  function loadHandler() {
-    // Update the sprite as soon as the image has been loaded
-    update();
+  //Move the blueCircle circle
+  blueCircle.x += blueCircle.vx;
+  blueCircle.y += blueCircle.vy;
+
+  //Use hitTestCircle to check for a collision and
+  //return the result (true or false) to the collision variable
+  blockCircle(blueCircle, redCircle);
+
+  //Render the sprites
+  render();
+}
+
+function blockCircle(c1, c2)
+{
+  //Calculate the vector between the circles’ center points
+  var vx = c1.centerX() - c2.centerX();
+  var vy = c1.centerY() - c2.centerY();
+
+  //Find the distance between the circles by calculating
+  //the vector's magnitude (how long the vector is)
+  var magnitude = Math.sqrt(vx * vx + vy * vy);
+
+  //Add together the circles' combined half-widths
+  var totalRadii = c1.halfWidth() + c2.halfWidth();
+
+  //Figure out if there's a collision
+  if(magnitude < totalRadii)
+  {
+    //Yes, a collision is happening.
+    //Find the amount of overlap between the circles
+    var overlap = totalRadii - magnitude;
+
+    //Normalize the vector.
+    //These numbers tell us the direction of the collision
+    dx = vx / magnitude;
+    dy = vy / magnitude;
+debugger
+    //Move circle 1 out of the collision by multiplying
+    //the overlap with the normalized vector and add it to
+    //circle 1's position
+    c1.x += overlap * dx;
+    c1.y += overlap * dy;
   }
+}
 
-  function update() {
-    // Create animation loop
-    window.requestAnimationFrame(update, canvas);
+function render(event)
+{
+  drawingSurface.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Up
-    if (moveUp && !moveDown) {
-      obj.velocityY = -5;
-    }
-
-    // Down
-    if (moveDown && !moveUp) {
-      obj.velocityY = 5;
-    }
-
-    // Left
-    if (moveLeft && !moveRight) {
-      obj.velocityX = -5;
-    }
-
-    // Right
-    if (moveRight && !moveLeft) {
-      obj.velocityX = 5;
-    }
-
-    // Set velocity to zero if no keys are pressed
-    if (!moveUp && !moveDown) {
-      obj.velocityY = 0;
-    }
-
-    if (!moveLeft && !moveRight) {
-      obj.velocityX = 0;
-    }
-
-    // Move sprite
-    obj.x += obj.velocityX;
-    obj.y += obj.velocityY;
-
-    // Render the animation
-    render();
-  }
-
-  function render() {
-    // Clear previous
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Loop through all the sprites and use their properties to display them
-    sprites.map(function(sprite) {
-      ctx.drawImage(
+  if(sprites.length !== 0)
+  {
+    for(var i = 0; i < sprites.length; i++)
+    {
+      var sprite = sprites[i];
+      drawingSurface.drawImage
+      (
         image,
         sprite.sourceX, sprite.sourceY,
         sprite.sourceWidth, sprite.sourceHeight,
         Math.floor(sprite.x), Math.floor(sprite.y),
         sprite.width, sprite.height
-      )
-    });
+      );
+    }
   }
-})()
+}
