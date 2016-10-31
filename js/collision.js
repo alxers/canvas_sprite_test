@@ -43,3 +43,13 @@ function blockCircle(c1, c2) {
     c1.y += overlap * dy;
   }
 }
+
+function hitTestRectangle(r1, r2) {
+  let hit = false;
+
+  // Calculate the distance vector
+  let vx = r1.centerX() - r2.centerX();
+  let vy = r1.centerY() - r2.centerY();
+
+  
+}
