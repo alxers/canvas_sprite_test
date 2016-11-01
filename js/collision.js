@@ -45,11 +45,20 @@ function blockCircle(c1, c2) {
 }
 
 function hitTestRectangle(r1, r2) {
-  let hit = false;
 
   // Calculate the distance vector
   let vx = r1.centerX() - r2.centerX();
   let vy = r1.centerY() - r2.centerY();
 
-  
+  let combinedHalfWidths = r1.halfWidth() + r2.halfWidth();
+  let combinedHalfHeights = r1.halfHeight() + r2.halfHeight();
+
+  // Check for collison on the X axis
+  if (Math.abs(vx) < combinedHalfWidths) {
+    // Check for collision on the Y axis
+    if (Math.abs(vy) < combinedHalfHeights) {
+      // Collision is happening
+      return true;
+    }
+  }
 }
