@@ -1,4 +1,6 @@
 ;(function() {
+
+  // TODO: Move objects to the separate file
   let spriteObject = {
     // The 'x' any 'y' source position of the sprite's image and its height and width
     sourceX: 0,
