@@ -57,22 +57,6 @@
   // An array to store the game sprites
   let sprites = [];
 
-  // Create sprites
-  // Center it on the canvas
-
-
-  var redCircle = Object.create(spriteObject);
-redCircle.x = 350;
-redCircle.y = 100;
-redCircle.height = 100;
-redCircle.width = 100;
-sprites.push(redCircle);
-
-var blueCircle = Object.create(spriteObject);
-blueCircle.sourceX = 64;
-blueCircle.x = 150;
-blueCircle.y = 250;
-sprites.push(blueCircle);
 
   // Load sprite image
   let image = new Image();
