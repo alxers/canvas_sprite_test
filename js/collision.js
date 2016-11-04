@@ -1,3 +1,5 @@
+// TODO: Add  bounce
+
 function hitTestPoint(pointX, pointY, sprite) {
   return (pointX > sprite.left() &&
           pointX < sprite.right() &&
