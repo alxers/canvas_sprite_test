@@ -64,3 +64,12 @@ function hitTestRectangle(r1, r2) {
     }
   }
 }
+
+//blockRectangle
+
+function blockRectangle(r1, r2, bounce) {
+  //Set bounce to a default value of false if it's not specified
+  if(typeof bounce === "undefined")
+  {
+    bounce = false;
+}
