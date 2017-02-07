@@ -69,7 +69,13 @@ function hitTestRectangle(r1, r2) {
 
 function blockRectangle(r1, r2, bounce) {
   //Set bounce to a default value of false if it's not specified
-  if(typeof bounce === "undefined")
-  {
+  if(typeof bounce === "undefined") {
     bounce = false;
+  }
+  
+    var collisionSide = "";
+  
+  //Calculate the distance vector
+  var vx = r1.centerX() - r2.centerX();
+  var vy = r1.centerY() - r2.centerY();
 }
