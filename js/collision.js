@@ -82,4 +82,12 @@ function blockRectangle(r1, r2, bounce) {
   // Combined half-widths and half-heights
   var combinedHalfWidths = r1.halfWidth() + r2.halfWidth();
   var combinedHalfHeights = r1.halfHeight() + r2.halfHeight();
+  
+  // Check whether vx is less than the combined half widths 
+  if(Math.abs(vx) < combinedHalfWidths) {
+    // A collision might be occurring! 
+    // Check whether vy is less than the combined half heights 
+    if(Math.abs(vy) < combinedHalfHeights) {
+    }
+  }
 }
