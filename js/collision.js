@@ -88,6 +88,10 @@ function blockRectangle(r1, r2, bounce) {
     // A collision might be occurring! 
     // Check whether vy is less than the combined half heights 
     if(Math.abs(vy) < combinedHalfHeights) {
+      // A collision has occurred 
+      // Find out the size of the overlap on both the X and Y axes
+      var overlapX = combinedHalfWidths - Math.abs(vx);
+      var overlapY = combinedHalfHeights - Math.abs(vy);
     }
   }
 }
