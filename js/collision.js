@@ -92,6 +92,25 @@ function blockRectangle(r1, r2, bounce) {
       // Find out the size of the overlap on both the X and Y axes
       var overlapX = combinedHalfWidths - Math.abs(vx);
       var overlapY = combinedHalfHeights - Math.abs(vy);
+      //The collision has occurred on the axis with the
+      //*smallest* amount of overlap. Let's figure out which
+      //axis that is
+        
+      if(overlapX >= overlapY) {
+        // The collision is happening on the X axis 
+        // But on which side? vy can tell us
+        if(vy > 0) {
+          collisionSide = "top";
+            
+          // Move the rectangle out of the collision
+          r1.y = r1.y + overlapY;
+        } else {
+          collisionSide = "bottom";
+          
+          // Move the rectangle out of the collision
+          r1.y = r1.y - overlapY;
+        }
+      }
     }
   }
 }
