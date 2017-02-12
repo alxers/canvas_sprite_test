@@ -110,6 +110,11 @@ function blockRectangle(r1, r2, bounce) {
           // Move the rectangle out of the collision
           r1.y = r1.y - overlapY;
         }
+        
+                //Bounce
+        if(bounce) {
+          r1.vy *= -1;
+        }
       }
     }
   }
