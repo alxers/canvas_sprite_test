@@ -115,6 +115,23 @@ function blockRectangle(r1, r2, bounce) {
         if(bounce) {
           r1.vy *= -1;
         }
+
+ } 
+      else 
+      {
+        // The collision is happening on the Y axis 
+        if(vx > 0)
+        {
+          collisionSide = "left";
+            
+          // Move the rectangle out of the collision
+          r1.x = r1.x + overlapX;
+        } else {
+          collisionSide = "right";
+            
+          // Move the rectangle out of the collision
+          r1.x = r1.x - overlapX;
+        }
       }
     }
   }
