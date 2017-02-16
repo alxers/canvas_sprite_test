@@ -186,3 +186,13 @@ function blockRectangle(r1, r2, bounce)
   
   return collisionSide;
 }
+
+
+//Use this to bounce an object off another object
+function bounceOffSurface(o, s) {
+  //1. Calculate the collision surface's properties
+  
+  //Find the surface vector's left normal
+  s.lx = s.vy; 
+  s.ly = -s.vx;
+}
