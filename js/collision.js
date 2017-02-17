@@ -195,4 +195,6 @@ function bounceOffSurface(o, s) {
   //Find the surface vector's left normal
   s.lx = s.vy; 
   s.ly = -s.vx;
+  //Find its magnitude
+  s.magnitude = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
 }
