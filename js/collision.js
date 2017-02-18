@@ -197,4 +197,8 @@ function bounceOffSurface(o, s) {
   s.ly = -s.vx;
   //Find its magnitude
   s.magnitude = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+  
+  //Find its normalized values
+  s.dx = s.vx / s.magnitude;
+  s.dy = s.vy / s.magnitude;
 }
