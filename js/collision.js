@@ -201,4 +201,9 @@ function bounceOffSurface(o, s) {
   //Find its normalized values
   s.dx = s.vx / s.magnitude;
   s.dy = s.vy / s.magnitude;
+	
+  //2. Bounce the object (o) off the surface (s)
+  
+  //Find the dot product between the object and the surface
+  var dp1 = o.vx * s.dx + o.vy * s.dy;
 }
