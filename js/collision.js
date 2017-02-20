@@ -206,4 +206,8 @@ function bounceOffSurface(o, s) {
   
   //Find the dot product between the object and the surface
   var dp1 = o.vx * s.dx + o.vy * s.dy;
+	
+  //Project the object's velocity onto the collision surface
+  var p1Vx = dp1 * s.dx; 
+  var p1Vy = dp1 * s.dy;
 }
