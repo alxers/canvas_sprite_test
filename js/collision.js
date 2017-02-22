@@ -212,5 +212,9 @@ function bounceOffSurface(o, s) {
   var p1Vy = dp1 * s.dy;
 
   //Find the dot product of the object and the surface's left normal (s.lx and s.ly)
-  var dp2 = o.vx * (s.lx / s.magnitude) + o.vy * (s.ly / s.magnitude); 
+  var dp2 = o.vx * (s.lx / s.magnitude) + o.vy * (s.ly / s.magnitude);
+	  
+  //Project the object's velocity onto the surface's left normal
+  var p2Vx = dp2 * (s.lx / s.magnitude);
+  var p2Vy = dp2 * (s.ly / s.magnitude);
 }
