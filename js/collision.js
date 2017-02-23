@@ -217,4 +217,8 @@ function bounceOffSurface(o, s) {
   //Project the object's velocity onto the surface's left normal
   var p2Vx = dp2 * (s.lx / s.magnitude);
   var p2Vy = dp2 * (s.ly / s.magnitude);
+	
+  //Reverse the projection on the surface's left normal
+  p2Vx *= -1; 
+  p2Vy *= -1;
 }
