@@ -221,4 +221,8 @@ function bounceOffSurface(o, s) {
   //Reverse the projection on the surface's left normal
   p2Vx *= -1; 
   p2Vy *= -1;
+	
+  //Add up the projections to create a new bounce vector
+  var bounceVx = p1Vx + p2Vx;
+  var bounceVy = p1Vy + p2Vy;
 }
