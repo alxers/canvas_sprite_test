@@ -225,4 +225,8 @@ function bounceOffSurface(o, s) {
   //Add up the projections to create a new bounce vector
   var bounceVx = p1Vx + p2Vx;
   var bounceVy = p1Vy + p2Vy;
+	
+  //Assign the bounce vector to the object's velocity
+  o.vx = bounceVx; 
+  o.vy = bounceVy;
 }
